@@ -1,74 +1,92 @@
-# ⚠️ Importante!!!
-Você pode escolher qualquer um dos desafios para desenvolver. Sinta-se à vontade para começar pelo desafio que mais lhe interessa.
+#include <stdio.h>
+#include <string.h>
 
-# Desafio Super Trunfo - Países - Comparação das Cartas
+// Programa Super Trunfo - Versão com Super Poder
 
-Bem-vindo ao desafio "Super Trunfo - Países"! Neste projeto, você desenvolverá um sistema para comparar cartas baseadas em atributos de cidades. O desafio é dividido em três níveis: Novato, Aventureiro e Mestre. Cada nível adiciona novas funcionalidades e complexidades, permitindo um aprendizado progressivo.
+int main() {
+    // Carta 1 - Dados
+    char Estado1[20] = "Minas Gerais";
+    char Codigo1[5] = "MG01";
+    char NomeCidade1[50] = "Ouro Preto";
+    unsigned long int Populacao1 = 74000;
+    float Area1 = 1245.10;
+    float Pib1 = 2350.75; // em milhões
+    int PontosTuristicos1 = 18;
 
-## 🏅 Nível Novato
+    // Carta 2 - Dados
+    char Estado2[20] = "Santa Catarina";
+    char Codigo2[5] = "SC02";
+    char NomeCidade2[50] = "Blumenau";
+    unsigned long int Populacao2 = 361000;
+    float Area2 = 519.80;
+    float Pib2 = 21100.30; // em milhões
+    int PontosTuristicos2 = 12;
 
-No nível Novato, você começará implementando a lógica básica de comparação entre cartas utilizando estruturas de decisão `if` e `if-else`.
+    // Cálculos - Densidade e PIB per capita
+    float Densidade1 = (Area1 != 0) ? (float)Populacao1 / Area1 : 0.0f;
+    float Densidade2 = (Area2 != 0) ? (float)Populacao2 / Area2 : 0.0f;
 
-### 🚩 Objetivos:
-- **Cadastro de Cartas:** O sistema permitirá ao usuário cadastrar cartas de cidades, incluindo informações como estado, código da carta, nome da cidade, população, área, PIB e número de pontos turísticos.
-- **Comparação de Cartas:** O sistema comparará os atributos de duas cartas e determinará a vencedora com base em uma propriedade específica (população, área, PIB, etc.), escolhida no código.
-- **Exibição de Resultados:** Após a comparação, o sistema exibirá qual carta venceu com base na regra: maior valor vence, exceto em densidade populacional, onde o menor valor é o vencedor.
+    float PIBperCapita1 = (Populacao1 != 0) ? (Pib1 * 1e6) / Populacao1 : 0.0f;
+    float PIBperCapita2 = (Populacao2 != 0) ? (Pib2 * 1e6) / Populacao2 : 0.0f;
 
-### 📥 Entrada de Dados:
-- Os dados das cartas serão inseridos manualmente via terminal.
-- O sistema solicitará interativamente as informações de cada carta.
+    float DensidadeInversa1 = (Densidade1 != 0) ? 1.0f / Densidade1 : 0.0f;
+    float DensidadeInversa2 = (Densidade2 != 0) ? 1.0f / Densidade2 : 0.0f;
 
-### 📤 Saída de Dados:
-- Após o cadastro, as propriedades da cidade serão exibidas de forma organizada.
-- O resultado da comparação será mostrado, indicando a carta vencedora.
+    // Cálculo do Super Poder
+    float SuperPoder1 = Populacao1 + Area1 + Pib1 + PontosTuristicos1 + PIBperCapita1 + DensidadeInversa1;
+    float SuperPoder2 = Populacao2 + Area2 + Pib2 + PontosTuristicos2 + PIBperCapita2 + DensidadeInversa2;
 
----
+    // Exibição - Carta 1
+    printf("\n==== Carta 1 ====\n");
+    printf("Cidade: %s (%s)\n", NomeCidade1, Estado1);
+    printf("Código: %s\n", Codigo1);
+    printf("População: %lu\n", Populacao1);
+    printf("Área: %.2f km²\n", Area1);
+    printf("PIB: R$ %.2f milhões\n", Pib1);
+    printf("Pontos Turísticos: %d\n", PontosTuristicos1);
+    printf("Densidade Populacional: %.2f hab/km²\n", Densidade1);
+    printf("Densidade Populacional Inversa: %.6f\n", DensidadeInversa1);
+    printf("PIB per capita: R$ %.2f\n", PIBperCapita1);
+    printf("Super Poder: %.2f\n", SuperPoder1);
 
-## 🏅 Nível Aventureiro
+    // Exibição - Carta 2
+    printf("\n==== Carta 2 ====\n");
+    printf("Cidade: %s (%s)\n", NomeCidade2, Estado2);
+    printf("Código: %s\n", Codigo2);
+    printf("População: %lu\n", Populacao2);
+    printf("Área: %.2f km²\n", Area2);
+    printf("PIB: R$ %.2f milhões\n", Pib2);
+    printf("Pontos Turísticos: %d\n", PontosTuristicos2);
+    printf("Densidade Populacional: %.2f hab/km²\n", Densidade2);
+    printf("Densidade Populacional Inversa: %.6f\n", DensidadeInversa2);
+    printf("PIB per capita: R$ %.2f\n", PIBperCapita2);
+    printf("Super Poder: %.2f\n", SuperPoder2);
 
-No nível Aventureiro, você expandirá o sistema para incluir a comparação aninhada e a criação de um menu interativo usando `switch`.
+    // Comparação por atributo (PIB per capita)
+    printf("\n==== Comparação de cartas (Atributo: PIB per capita) ====\n");
+    printf("Carta 1 - %s: R$ %.2f\n", NomeCidade1, PIBperCapita1);
+    printf("Carta 2 - %s: R$ %.2f\n", NomeCidade2, PIBperCapita2);
 
-### 🆕 Diferença em relação ao Nível Novato:
-- **Menu Interativo:** O usuário poderá escolher diferentes atributos para comparação através de um menu.
-- **Comparação Aninhada:** Implementação de lógica de comparação mais complexa, utilizando estruturas aninhadas para tomar decisões baseadas em múltiplos atributos.
+    if (PIBperCapita1 > PIBperCapita2) {
+        printf("Resultado: Carta 1 (%s) venceu!\n", NomeCidade1);
+    } else if (PIBperCapita2 > PIBperCapita1) {
+        printf("Resultado: Carta 2 (%s) venceu!\n", NomeCidade2);
+    } else {
+        printf("Resultado: Empate! Ambas têm o mesmo PIB per capita.\n");
+    }
 
-### 🚩 Novas Funcionalidades:
-- **Cadastro de Cartas:** Similar ao nível Novato, com a adição de comparação de múltiplos atributos.
-- **Menu Interativo:** Uso de `switch` para criar um menu que permite ao jogador escolher os atributos a serem comparados.
-- **Exibição de Resultados:** O sistema exibirá o resultado da comparação, indicando qual carta venceu e qual atributo foi utilizado.
+    // Comparação de Super Poder (extra, não obrigatória)
+    printf("\n==== Comparação de Super Poder ====\n");
+    printf("Super Poder 1 ( %s ): %.2f\n", NomeCidade1, SuperPoder1);
+    printf("Super Poder 2 ( %s ): %.2f\n", NomeCidade2, SuperPoder2);
 
----
+    if (SuperPoder1 > SuperPoder2) {
+        printf("Super Poder Vencedor: Carta 1 (%s)\n", NomeCidade1);
+    } else if (SuperPoder2 > SuperPoder1) {
+        printf("Super Poder Vencedor: Carta 2 (%s)\n", NomeCidade2);
+    } else {
+        printf("Empate no Super Poder!\n");
+    }
 
-## 🏅 Nível Mestre
-
-No nível Mestre, o desafio se intensifica com a adição de funcionalidades avançadas, como menus dinâmicos e lógica de decisão complexa com operadores ternários.
-
-### 🆕 Diferença em relação ao Nível Aventureiro:
-- **Escolha de Dois Atributos:** O usuário poderá escolher dois atributos para comparação entre as cartas.
-- **Lógica de Decisão Complexa:** Implementação de estruturas de decisão aninhadas e encadeadas, além do uso de operadores ternários para determinar a carta vencedora.
-- **Menus Dinâmicos:** Os menus serão dinâmicos, permitindo uma navegação fluida entre as opções de comparação.
-
-### 🚩 Novas Funcionalidades:
-- **Comparação de Dois Atributos:** O sistema comparará dois atributos simultaneamente para determinar a carta vencedora.
-- **Lógica Avançada:** Uso de operadores ternários e lógica aninhada para lidar com comparações complexas.
-- **Empates:** O sistema será capaz de lidar com empates, exibindo mensagens apropriadas.
-- **Exibição de Resultados:** Exibição dos resultados das comparações de forma clara e interativa.
-
----
-
-## 📋 Requisitos Funcionais Comuns
-- **Cadastro de Cartas:** O sistema deve permitir o cadastro de cartas com as informações necessárias.
-- **Comparação:** O sistema deve comparar as cartas e determinar a vencedora com base nas regras estabelecidas.
-- **Exibição de Resultados:** Os resultados devem ser exibidos de forma clara, indicando a carta vencedora.
-
-## 📌 Requisitos Não Funcionais Comuns
-- **Usabilidade:** A interface do usuário deve ser simples e intuitiva.
-- **Performance:** O sistema deve executar operações sem atrasos perceptíveis.
-- **Manutenibilidade:** O código deve ser bem estruturado e documentado.
-- **Confiabilidade:** O sistema deve ser robusto e capaz de lidar com entradas inválidas de forma adequada.
-
----
-
-Boa sorte no desenvolvimento deste desafio e aproveite para aprender e se divertir enquanto progride pelos níveis!
-
-Equipe de Ensino - MateCheck
+    return 0;
+}
